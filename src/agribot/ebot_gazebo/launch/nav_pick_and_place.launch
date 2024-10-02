@@ -1,7 +1,7 @@
 <launch>
   <!--  agribot with ur5 -->
-  <param name="robot_description" command="$(find xacro)/xacro --inorder '$(find ebot_gazebo)/urdf/agri_bot.xacro"/>
-  
+  <param name="robot_description" command="$(find xacro)/xacro --inorder '$(find ebot_gazebo)/urdf/agri_bot.xacro'"/>
+
   <!-- Spawn the robot model -->
   <arg name="x" default="0.8"/>
   <arg name="y" default="-1.362"/>
@@ -19,12 +19,14 @@
 
   <!-- include your manipulation launch file from agri_bot_moveit package -->
   <include file="$(find agri_bot_moveit)/launch/ur5_bringup_moveit.launch"/>
-  
 
   <!-- include your tomato detection script -->
-  
+    <node name="tomato_detection" pkg="agri_bot_perception" type="tomato_detection.py" output="screen" />
   
   <!-- include teleop script or task1.3 script for navigation -->
+    <node pkg="ebot_nav" name="controller" type="controller.py" output="screen"> </node> 
+    
   
 
 </launch>
+
